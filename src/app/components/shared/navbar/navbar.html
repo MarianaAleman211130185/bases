@@ -1,0 +1,27 @@
+<style>
+    nav{
+        display: flex;
+        justify-content: space-around;
+        background-color: rgb(215, 117, 146);
+        color: white;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    nav a{
+        color: white;
+        text-decoration: none;
+    }
+
+    nav a.active{
+        color: rgb(118, 27, 98);
+        font-weight: bold;
+        text-decoration: underline;
+    }
+</style>
+
+
+<nav>
+    <a routerLink="/counter" routerLinkActive="active">Hola</a>
+    <a [routerLink]="['/hero']" [routerLinkActive]="'active'">Personas</a>
+    <a routerLink="/datos" routerLinkActive="active">Datos</a>
+</nav>

@@ -1,0 +1,56 @@
+<!-- Contenedor principal para centrar el contenido -->
+<div class="container mt-4">
+
+  <!-- Columna centrada y de ancho medio -->
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+
+      <!-- TÍTULO PRINCIPAL -->
+      <!-- h1 grande y limpio -->
+      <h1 class="fw-bold mb-4">
+        {{ name() }}
+      </h1>
+
+      <!-- BLOQUE DE INFORMACIÓN -->
+      <!-- Cada sección tiene etiqueta + valor -->
+      <div class="mb-3">
+        <span class="text-muted">Nombre:</span><br>
+        <span class="fw-bold">{{ name() }}</span>
+      </div>
+
+      <div class="mb-3">
+        <span class="text-muted">Edad:</span><br>
+        <span class="fw-bold">{{ age() }}</span>
+      </div>
+
+      <!-- BOTONES -->
+      <!-- d-flex = flexbox -->
+      <!-- gap = separación uniforme -->
+      <div class="d-flex gap-2">
+
+        <!-- Cambiar nombre -->
+        <button
+          (click)="changeHero()"
+          class="btn btn-primary">
+          Cambiar nombre
+        </button>
+
+        <!-- Cambiar edad -->
+        <button
+          (click)="changeAge()"
+          class="btn btn-primary">
+          Cambiar edad
+        </button>
+
+        <!-- Reset -->
+        <button
+          (click)="resetForm()"
+          class="btn btn-primary">
+          Reset
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
