@@ -1,13 +1,9 @@
-import { Component } from '@angular/core';
-
-interface Character {
-    id: number;
-    name: string;
-}
+import { Component, signal } from '@angular/core';
 
 @Component({
   templateUrl: './datos-pages.component.html',
 })
 export class DatosPagesComponent {
-
+    name = signal('');
+    lastname = signal('');
 }
