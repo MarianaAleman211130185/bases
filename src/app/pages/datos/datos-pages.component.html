@@ -1,13 +1,70 @@
-<h1>Página de Datos</h1>
-<hr />
+<div class="container mt-5">
 
-<section>
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <h3>Agregar datos de una persona</h3>
-            <input type="text" class="form-control" placeholder="Ingrese un nombre">
-            <input type="text" class="form-control mt-2" placeholder="Ingrese un apellido">
-            <button class="btn btn-primary mt-2">Agregar</button>
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+      <!-- TARJETA INSTITUCIONAL -->
+      <div class="card ine-card shadow-sm">
+
+        <!-- ENCABEZADO -->
+        <div class="card-header ine-card-header text-center">
+          <i class="bi bi-person-vcard-fill fs-4"></i>
+          <div class="mt-1">Registro de Persona</div>
         </div>
+
+        <!-- CUERPO -->
+        <div class="card-body">
+
+          <p class="text-center text-muted mb-4">
+            Captura de datos básicos de identificación
+          </p>
+
+          <!-- NOMBRE -->
+          <div class="mb-3">
+            <label class="form-label ine-label">
+              <i class="bi bi-person-fill me-1"></i>
+              Nombre
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ej. Mariana"
+              [value]="name()"
+              (input)="name.set($any($event.target).value)"
+            >
+          </div>
+
+          <!-- APELLIDO -->
+          <div class="mb-3">
+            <label class="form-label ine-label">
+              <i class="bi bi-person-badge-fill me-1"></i>
+              Apellido
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ej. López"
+              [value]="lastname()"
+              (input)="lastname.set($any($event.target).value)"
+            >
+          </div>
+
+          <!-- BOTÓN -->
+          <div class="d-grid mt-4">
+            <button
+              class="btn btn-ine"
+              (click)="addPerson()"
+            >
+              <i class="bi bi-check-circle-fill me-2"></i>
+              Registrar persona
+            </button>
+          </div>
+
+        </div>
+      </div>
+
     </div>
-</section>
+  </div>
+</div>
