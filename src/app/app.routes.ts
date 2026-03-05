@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HeroPageComponent } from './pages/hero/hero-page/hero-page';
+import { HeroPageComponent } from './pages/hero/hero-page/hero-page.component';
 import { CounterPageComponent } from './pages/counter/counter-page.component';
 import { DatosPagesComponent } from './pages/datos/datos-pages.component';
 export const routes: Routes = [

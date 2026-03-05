@@ -1,41 +1,39 @@
 import { Component } from "@angular/core";
 
 @Component({
+  selector: 'app-counter-page',
+  styleUrls: ['./counter-page.component.css'],
   template: `
-    <div class="container mt-5 d-flex justify-content-center">
-      
-      <div class="card shadow-lg border-0 p-4 text-center" style="max-width: 500px;">
-        
-        <!-- Ícono principal -->
-        <i class="bi bi-building-check fs-1 text-success mb-3"></i>
+  <div class="app-container">
 
-        <!-- Título -->
-        <h1 class="fw-semibold text-uppercase" style="letter-spacing: 2px;">
-          Sistema Preliminar
-        </h1>
+      <div class="card-container">
 
-        <!-- Subtítulo -->
-        <h5 class="text-secondary mt-2">
-          Instituto Nacional Electoral
-        </h5>
+          <div class="icon">
+              <i class="bi bi-building-check"></i>
+          </div>
 
-        <hr class="my-4">
+          <h1 class="title">
+              Sistema Preliminar
+          </h1>
 
-        <!-- Mensaje -->
-        <p class="text-muted fs-6">
-          Plataforma desarrollada en <strong>Angular</strong> para pruebas
-          de interfaz y navegación institucional.
-        </p>
+          <h3 class="subtitle">
+              Instituto Nacional Electoral
+          </h3>
 
-        <!-- Badge -->
-        <span class="badge bg-success-subtle text-success mt-3 px-3 py-2">
-          Versión inicial
-        </span>
+          <hr>
+
+          <p class="description">
+              Plataforma desarrollada en <strong>Angular</strong> para pruebas
+              de interfaz y navegación institucional.
+          </p>
+
+          <span class="badge">
+              Versión inicial
+          </span>
 
       </div>
 
-    </div>
+  </div>
   `
 })
-export class CounterPageComponent {
-}
+export class CounterPageComponent { }
