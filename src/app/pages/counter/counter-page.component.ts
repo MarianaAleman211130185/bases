@@ -23,7 +23,7 @@ import { Component } from "@angular/core";
           <hr>
 
           <p class="description">
-              Plataforma desarrollada en <strong>Angular</strong> para pruebas
+              Plataforma desarrollada en Angular para pruebas
               de interfaz y navegación institucional.
           </p>
 

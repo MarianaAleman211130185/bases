@@ -55,14 +55,14 @@
 ========================= */
 
 .title{
-  font-size: 34px;
+  font-size: 50px;
   font-weight: bold;
   letter-spacing: 2px;
   margin-bottom: 5px;
 }
 
 .subtitle{
-  font-size: 18px;
+  font-size: 25px;
   color: #555;
   margin-bottom: 10px;
 }
@@ -73,8 +73,8 @@
 ========================= */
 
 .description{
-  font-size: 15px;
-  color: #444;
+  font-size: 20px;
+  color: #000000;
   margin-top: 15px;
 }
 
@@ -85,15 +85,9 @@
 
 .badge{
   display: inline-block;
-
-  margin-top: 20px;
-
   padding: 8px 18px;
-
-  border-radius: 20px;
-
   background-color: #9c1c4c;
   color: white;
 
-  font-size: 13px;
+  font-size: 20px;
 }
