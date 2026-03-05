@@ -1,22 +1,35 @@
 <style>
-    nav{
-        display: flex;
-        justify-content: space-around;
-        background-color: rgb(215, 117, 146);
-        color: white;
-        gap: 1rem;
-        padding: 1rem;
-    }
-    nav a{
-        color: white;
-        text-decoration: none;
-    }
 
-    nav a.active{
-        color: rgb(118, 27, 98);
-        font-weight: bold;
-        text-decoration: underline;
-    }
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #9c1c4c;
+    color: white;
+    gap: 2rem;
+    padding: 1.5rem;
+    transition: 0.3s ease;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    font-size: 25px;    
+    font-weight: 500;
+    transition: 0.2s;
+    transform: 0.3s ease;
+}
+
+nav a:hover{
+    transform: translateY(-6px);
+}
+
+nav a.active{
+    color: #f8f9fa;
+    font-weight: bold;
+    text-decoration: underline;
+    transform: 0.3s ease;
+}
 </style>
 
 <nav>
