@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+.app-container{
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+body{
+  font-family: "Poppins", sans-serif;
+  color: #222;
+  letter-spacing: 0.3px;
+}
+.ine-card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+.ine-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.ine-card .card-body {
+  padding: 20px;
+}
+.ine-card-header {
+  font-family: Poppins, sans-serif;
+  background-color: #9c1c4c;
+  color: #fff;
+  padding: 15px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-body {
+  font-family: Poppins, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.card-body p {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+.ine-label {
+  font-size: 1rem;
+  color: #555;
+}
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.form-control:focus {
+  border-color: #9c1c4c;
+  box-shadow: 0 0 5px rgba(156, 28, 76, 0.5);
+}
+.form-control:focus::placeholder {
+  color: transparent;
+}
+.btn-ine {
+  background-color: #9c1c4c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-ine:hover {
+  background-color: #7a1536;
+}

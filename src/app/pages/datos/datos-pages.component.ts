@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 
 @Component({
   templateUrl: './datos-pages.component.html',
+  styleUrls: ['./datos-pages.component.css']
 })
 export class DatosPagesComponent {
 
