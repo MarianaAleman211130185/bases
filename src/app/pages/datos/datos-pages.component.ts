@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: './datos-pages.component.html',
