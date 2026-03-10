@@ -1,56 +1,44 @@
-<!-- Contenedor principal para centrar el contenido -->
-<div class="container mt-4">
+<div class="hero-container">
 
-  <!-- Columna centrada y de ancho medio -->
-  <div class="row justify-content-center">
-    <div class="col-md-5">
+  <div class="hero-card">
 
-      <!-- TÍTULO PRINCIPAL -->
-      <!-- h1 grande y limpio -->
-      <h1 class="fw-bold mb-4">
-        {{ name() }}
-      </h1>
+    <div class="hero-header">
+      <i class="bi bi-people-fill"></i>
+      Personas Registradas
+    </div>
 
-      <!-- BLOQUE DE INFORMACIÓN -->
-      <!-- Cada sección tiene etiqueta + valor -->
-      <div class="mb-3">
-        <span class="text-muted">Nombre:</span><br>
-        <span class="fw-bold">{{ name() }}</span>
-      </div>
+    <div class="hero-body">
 
-      <div class="mb-3">
-        <span class="text-muted">Edad:</span><br>
-        <span class="fw-bold">{{ age() }}</span>
-      </div>
+      <table class="table-ine">
 
-      <!-- BOTONES -->
-      <!-- d-flex = flexbox -->
-      <!-- gap = separación uniforme -->
-      <div class="d-flex gap-2">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+          </tr>
+        </thead>
 
-        <!-- Cambiar nombre -->
-        <button
-          (click)="changeHero()"
-          class="btn btn-primary">
-          Cambiar nombre
-        </button>
+        <tbody>
 
-        <!-- Cambiar edad -->
-        <button
-          (click)="changeAge()"
-          class="btn btn-primary">
-          Cambiar edad
-        </button>
+          <tr *ngFor="let p of persons(); let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.apellido }}</td>
+          </tr>
 
-        <!-- Reset -->
-        <button
-          (click)="resetForm()"
-          class="btn btn-primary">
-          Reset
-        </button>
+          <tr *ngIf="persons().length === 0">
+            <td colspan="3" class="no-data">
+              No hay personas registradas
+            </td>
+          </tr>
 
-      </div>
+        </tbody>
+
+      </table>
 
     </div>
+
   </div>
+
 </div>

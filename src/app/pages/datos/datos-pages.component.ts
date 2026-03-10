@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: './datos-pages.component.html',
@@ -7,29 +6,35 @@ import Swal from 'sweetalert2';
 })
 export class DatosPagesComponent {
 
-  // Señal para almacenar el nombre de la persona
   name = signal<string>('');
-
-  // Señal para almacenar el apellido
   lastname = signal<string>('');
 
-  // Método que se ejecuta al presionar el botón "Agregar"
   addPerson(): void {
 
-    // Validación básica para evitar campos vacíos
     if (!this.name() || !this.lastname()) {
       alert('Por favor, completa todos los campos');
       return;
     }
 
-    // Aquí en el futuro podrías enviar los datos a un backend
-    console.log('Persona registrada:', {
+    // Obtener datos actuales del localStorage
+    const data = localStorage.getItem('personas');
+
+    const persons = data ? JSON.parse(data) : [];
+
+    // Agregar nueva persona
+    persons.push({
       nombre: this.name(),
       apellido: this.lastname()
     });
 
-    // Limpia los campos después de agregar
+    // Guardar nuevamente en localStorage
+    localStorage.setItem('personas', JSON.stringify(persons));
+
+    console.log('Persona guardada:', persons);
+
+    // Limpiar campos
     this.name.set('');
     this.lastname.set('');
+
   }
 }

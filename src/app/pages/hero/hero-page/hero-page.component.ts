@@ -1,35 +1,32 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Person {
+  nombre: string;
+  apellido: string;
+}
 
 @Component({
   selector: 'app-hero-page',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './hero-page.html',
+  styleUrl: './hero-page.css'
 })
-export class HeroPageComponent {
+export class HeroPageComponent implements OnInit {
 
-  // Señales que representan los datos de una persona
-  name = signal<string>('Mariana');
-  age  = signal<number>(22);
+  // Lista de personas
+  persons = signal<Person[]>([]);
 
-  // Devuelve una descripción básica de la persona
-  getHeroDescription(): string {
-    return `${this.name()} - ${this.age()} años`;
+  ngOnInit(): void {
+
+    // Cargar personas guardadas en localStorage
+    const data = localStorage.getItem('personas');
+
+    if (data) {
+      this.persons.set(JSON.parse(data));
+    }
+
   }
 
-  // Cambia los datos de la persona
-  changeHero (): void {
-    this.name.set('Mariana López');
-    this.age.set(27);
-  }
-
-  // Cambia únicamente la edad
-  changeAge(): void {
-    this.age.set(28);
-  }
-
-  // Restaura los valores originales
-  resetForm(): void {
-    this.name.set('Mariana');
-    this.age.set(22);
-  }
 }
