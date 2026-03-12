@@ -15,24 +15,28 @@ export class DatosPagesComponent {
       alert('Por favor, completa todos los campos');
       return;
     }
-
-    // Obtener datos actuales del localStorage
     const data = localStorage.getItem('personas');
-
     const persons = data ? JSON.parse(data) : [];
 
-    // Agregar nueva persona
+    const exists = persons.some(
+      (p: any) => 
+        p.nombre.toLowerCase() === this.name().toLowerCase() &&
+        p.apellido.toLowerCase() === this.lastname().toLowerCase()  
+    );
+
+    if (exists) {
+      alert('La persona ya se encuentra registrada');
+      return;
+    }
+
     persons.push({
       nombre: this.name(),
       apellido: this.lastname()
     });
 
-    // Guardar nuevamente en localStorage
     localStorage.setItem('personas', JSON.stringify(persons));
+    alert('Persona registrada exitosamente');
 
-    console.log('Persona guardada:', persons);
-
-    // Limpiar campos
     this.name.set('');
     this.lastname.set('');
 
