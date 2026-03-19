@@ -1,0 +1,84 @@
+header.REDES{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 40px;
+    background-color: #ffffff;
+    color: white;
+    gap: 2rem;
+    padding: 1rem;
+}
+.social-icons{
+    display: flex;
+    gap: 1.2rem;
+}
+.social-icons a{
+    width: 45px;
+    height: 45px;
+    background-color: black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+.social-icons i{
+    color: white;
+    font-size: 20px;
+}
+.social-icons a:hover{
+    transform: translateY(-5px);
+    background-color: #9c1c4c;
+}
+header.REDES a{
+    display: flex;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+    transform: 0.3s ease;
+}
+header.REDES a:hover{
+    transform: translateY(-6px);
+    color: #9c1c4c;
+    font-size: 1.5rem;
+}
+nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-sizing: border-box;
+    background-color: #dad6d7;
+    color: white;
+    gap: 2rem;
+    padding: 2rem;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.09);}
+nav a{
+    font-family: "Poppins", sans-serif;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;    
+    font-weight: 500;
+    transition: 0.2s;
+    transform: 0.3s ease;
+}
+nav a:hover{
+    transform: translateY(-6px);
+}
+
+nav a.active{
+    color: #9c1c4c;
+    font-weight: bold;
+    text-decoration: underline;
+    transform: 0.3s ease;
+}
+.logo img{
+  height: 50px;
+  max-width: 100%;
+}
