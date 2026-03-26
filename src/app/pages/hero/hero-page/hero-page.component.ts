@@ -1,10 +1,6 @@
 import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface Person {
-  nombre: string;
-  apellido: string;
-}
+import { PersonService, Person } from '../../../services/person.service';
 
 @Component({
   selector: 'app-hero-page',
@@ -15,18 +11,25 @@ interface Person {
 })
 export class HeroPageComponent implements OnInit {
 
-  // Lista de personas
   persons = signal<Person[]>([]);
 
+  constructor(private personService: PersonService) {}
+
   ngOnInit(): void {
-
-    // Cargar personas guardadas en localStorage
     const data = localStorage.getItem('personas');
-
+    let localPersons: Person[] = [];
     if (data) {
-      this.persons.set(JSON.parse(data));
+      localPersons = JSON.parse(data);
     }
-
+    this.personService.getPersons().subscribe((resp: any) => {
+      const personsApi: Person[] = resp.results.map((p: any, index: number) => ({
+        id: index,
+        nombre: p.name.first,
+        apellido: p.name.last
+      }));
+      this.persons.set([...localPersons, ...personsApi]);
+    });
+    const allPersons = [...localPersons, ...this.persons()];
+    this.persons.set(allPersons);
   }
-
-}
+  }
