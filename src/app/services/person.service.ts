@@ -1,37 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs'; 
+import { Observable } from 'rxjs';
 
 export interface Person {
   id: number;
   nombre: string;
   apellido: string;
+  email: string;
 }
-
 @Injectable({
   providedIn: 'root',
 })
 export class PersonService {
 
-  private apiUrl = 'https://randomuser.me/api/?results=5&nat=es';
+  private apiUrl = 'http://localhost:8080/sistema/api/v1/personas';
   constructor(private http: HttpClient) {}
-  getPersons(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  // Obtener todas las personas
+  getPersons(): Observable<Person[]> {
+    return this.http.get<Person[]>(this.apiUrl);
   }
-
-  getPerson(id: number): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  // Obtener una persona por nombre
+  getPerson(nombre: string): Observable<Person> {
+    return this.http.get<Person>(`${this.apiUrl}/${nombre}`);
   }
-
-  createPerson(person: Person): Observable<any> {
-    return this.http.post<any>(this.apiUrl, person);
+  // Crear una nueva persona
+  createPerson(person: Person): Observable<Person> {
+    return this.http.post<Person>(this.apiUrl, person);
   }
-
-  updatePerson(person: Person): Observable<any> {
-    return this.http.put<any>(this.apiUrl, person);
+  // Actualizar todos los datos de una persona
+  updatePerson(person: Person): Observable<Person> {
+    return this.http.put<Person>(this.apiUrl, person);
   }
-
-  deletePerson(id: number): Observable<any> {
-    return this.http.delete<any>(this.apiUrl);
+  // Eliminar una persona por id
+  deletePerson(id: number): Observable<Person> {
+    return this.http.delete<Person>(`${this.apiUrl}/${id}`);
+  }
+  // Actualizar parcialmente una persona
+  patchPerson(person: Partial<Person>): Observable<Person> {
+    return this.http.patch<Person>(this.apiUrl, person);
   }
 }

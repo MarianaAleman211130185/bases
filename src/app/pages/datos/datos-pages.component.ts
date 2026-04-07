@@ -8,10 +8,11 @@ export class DatosPagesComponent {
 
   name = signal<string>('');
   lastname = signal<string>('');
+  email = signal<string>('');
 
   addPerson(): void {
 
-    if (!this.name() || !this.lastname()) {
+    if (!this.name() || !this.lastname() || !this.email()) {
       alert('Por favor, completa todos los campos');
       return;
     }
@@ -21,7 +22,8 @@ export class DatosPagesComponent {
     const exists = persons.some(
       (p: any) => 
         p.nombre.toLowerCase() === this.name().toLowerCase() &&
-        p.apellido.toLowerCase() === this.lastname().toLowerCase()  
+        p.apellido.toLowerCase() === this.lastname().toLowerCase() &&
+        p.email.toLowerCase() === `${this.name().toLowerCase()}.${this.lastname().toLowerCase()}@example.com` 
     );
 
     if (exists) {
@@ -31,7 +33,8 @@ export class DatosPagesComponent {
 
     persons.push({
       nombre: this.name(),
-      apellido: this.lastname()
+      apellido: this.lastname(),
+      email: `${this.name().toLowerCase()}.${this.lastname().toLowerCase()}@example.com`
     });
 
     localStorage.setItem('personas', JSON.stringify(persons));
@@ -39,6 +42,7 @@ export class DatosPagesComponent {
 
     this.name.set('');
     this.lastname.set('');
+    this.email.set('');
 
   }
 }

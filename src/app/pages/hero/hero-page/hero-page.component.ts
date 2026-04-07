@@ -21,13 +21,14 @@ export class HeroPageComponent implements OnInit {
     if (data) {
       localPersons = JSON.parse(data);
     }
-    this.personService.getPersons().subscribe((resp: any) => {
-      const personsApi: Person[] = resp.results.map((p: any, index: number) => ({
+    this.personService.getPersons().subscribe((resp: Person[]) => {
+      const allPersons: Person[] = resp.map((p: Person, index: number) => ({
         id: index,
-        nombre: p.name.first,
-        apellido: p.name.last
+        nombre: p.nombre,
+        apellido: p.apellido,
+        email: p.email
       }));
-      this.persons.set([...localPersons, ...personsApi]);
+      this.persons.set([...localPersons, ...allPersons]);
     });
     const allPersons = [...localPersons, ...this.persons()];
     this.persons.set(allPersons);

@@ -26,12 +26,10 @@ body{
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   transition: all .3s ease;
 }
-
 .hero-card:hover{
   transform: translateY(-5px);
   box-shadow: 0 10px 24px rgba(0,0,0,0.18);
 }
-
 .hero-header{
   font-family: "Poppins", sans-serif;
   background: #9c1c4c;
