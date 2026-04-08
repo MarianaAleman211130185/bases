@@ -16,21 +16,22 @@ export class HeroPageComponent implements OnInit {
   constructor(private personService: PersonService) {}
 
   ngOnInit(): void {
-    const data = localStorage.getItem('personas');
+
     let localPersons: Person[] = [];
+
+    const data = localStorage.getItem('personas');
     if (data) {
       localPersons = JSON.parse(data);
     }
-    this.personService.getPersons().subscribe((resp: Person[]) => {
-      const allPersons: Person[] = resp.map((p: Person, index: number) => ({
-        id: index,
-        nombre: p.nombre,
-        apellido: p.apellido,
-        email: p.email
-      }));
-      this.persons.set([...localPersons, ...allPersons]);
+
+    this.personService.getPersons().subscribe((apiPersons: Person[]) => {
+
+      const allPersons = [...localPersons, ...apiPersons];
+
+      this.persons.set(allPersons);
+
     });
-    const allPersons = [...localPersons, ...this.persons()];
-    this.persons.set(allPersons);
+
   }
-  }
+
+}
