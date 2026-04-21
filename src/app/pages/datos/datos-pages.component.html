@@ -1,16 +1,12 @@
 <div class="container mt-5">
-
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
-
       <div class="card ine-card shadow-sm">
-
         <div class="card-header ine-card-header text-center">
           <i class="bi bi-person-vcard-fill fs-4"></i>
           <div class="mt-1">Registro de Persona</div>
         </div>
         <div class="card-body">
-
           <p class="text-center text-muted mb-4">
             Captura de datos básicos de identificación
           </p>
@@ -20,11 +16,9 @@
               <i class="bi bi-person-fill me-1"></i>
               Nombre(s):
             </label>
-
             <input
               type="text"
               class="form-control"
-              placeholder="Ej. Mariana"
               [value]="name()"
               (input)="name.set($any($event.target).value)"
             >
@@ -33,17 +27,88 @@
           <div class="mb-3">
             <label class="form-label ine-label">
               <i class="bi bi-person-badge-fill me-1"></i>
-              Apellidos:
+              Apellido Materno:
             </label>
-
             <input
               type="text"
               class="form-control"
-              placeholder="Ej. López"
               [value]="lastname()"
               (input)="lastname.set($any($event.target).value)"
             >
           </div>
+
+            <div class="mb-3">
+            <label class="form-label ine-label">
+              <i class="bi bi-person-badge-fill me-1"></i>
+              Apellido Paterno:
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="lastname()"
+              (input)="lastname.set($any($event.target).value)"
+            >
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label ine-label">
+              <i class="bi bi-calendar-fill me-1"></i>
+              Fecha de Nacimiento:
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              [value]="birthdate()"
+              (input)="birthdate.set($any($event.target).value)"
+            >
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label ine-label">
+              <i class="bi bi-geo-alt-fill me-1"></i>
+              Genero:
+            </label>
+            <select class="form-control">
+              <option value="">Selecciona género</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+              <option value="O">Otro</option>
+            </select>
+          </div>
+
+          <div class="card-body">
+            <p class="text-center text-muted mb-4">
+            Captura de Residencia
+            </p>
+          <div>
+              <label class="form-label ine-label">
+                <i class="bi bi-geo-alt-fill me-1"></i>
+                Estado de Residencia: 
+              </label>
+                <select class="form-control">
+                <option value="">Selecciona una entidad</option>
+                <option>CDMX</option>
+                <option>Estado de México</option>
+              </select>
+          </div>
+            <div>
+              <label class="form-label ine-label">
+                <i class="bi bi-geo-alt-fill me-1"></i>
+                Municipio o Alcaldía de Residencia: 
+              </label>
+              <select class="form-control">
+                [disabled]="municipios().length === 0"
+                (change)="municipio.set($any($event.target).value)"
+                <option value="">Selecciona un municipio</option>
+                <option *ngFor="let municipio of municipios()" [value]="municipio">
+                  {{ municipio }}
+                </option>
+              </select>
+            </div>
+          <div class="card-body">
+            <p class="text-center text-muted mb-4">
+            Captura de Contacto
+            </p>
           <div class="mb-3">
             <label class="form-label ine-label">
               <i class="bi bi-envelope-fill me-1"></i>
@@ -52,11 +117,25 @@
             <input
               type="email"
               class="form-control"
-              placeholder="Ej. mariana.lopez@example.com"
               [value]="email()"
               (input)="email.set($any($event.target).value)"
             >
           </div>
+
+          <div>
+            <label class="form-label ine-label">
+              <i class="bi bi-geo-alt-fill me-1"></i>
+              Numero de Teléfono: 
+            </label>
+            <input
+              type="tel"
+              class="form-control"
+              [value]="phone()"
+              (input)="phone.set($any($event.target).value)" 
+            >
+          </div>
+          </div>
+
           <div class="d-grid mt-4">
             <button
               class="btn btn-ine"
@@ -66,10 +145,8 @@
               Registrar persona
             </button>
           </div>
-
         </div>
       </div>
-
     </div>
   </div>
 </div>
