@@ -58,9 +58,18 @@
             <input
               type="date"
               class="form-control"
+              [max]="fechaMaxima()"
               [value]="birthdate()"
-              (input)="birthdate.set($any($event.target).value)"
+              (input)="onFechaChange($any($event.target).value)"
             >
+              <div *ngIf="esMayorDeEdad() !== null" class="mt-2">
+              <small *ngIf="!esMayorDeEdad()" class="text-danger">
+                ⚠️ Debe ser mayor de edad (18+)
+              </small>
+            <small *ngIf="esMayorDeEdad()" class="text-success">
+                ✔️ Apto para registro
+              </small>
+            </div>  
           </div>
 
           <div class="mb-3">
@@ -85,10 +94,12 @@
                 <i class="bi bi-geo-alt-fill me-1"></i>
                 Estado de Residencia: 
               </label>
-                <select class="form-control">
+                <select class="form-control"
+                (change)="onEstadoChange($event)"
+                >
                 <option value="">Selecciona una entidad</option>
-                <option>CDMX</option>
-                <option>Estado de México</option>
+                <option value="CDMX">CDMX</option>
+                <option value="Estado de México">Estado de México</option>
               </select>
           </div>
             <div>
@@ -96,9 +107,10 @@
                 <i class="bi bi-geo-alt-fill me-1"></i>
                 Municipio o Alcaldía de Residencia: 
               </label>
-              <select class="form-control">
+              <select class="form-control"
                 [disabled]="municipios().length === 0"
                 (change)="municipio.set($any($event.target).value)"
+              >
                 <option value="">Selecciona un municipio</option>
                 <option *ngFor="let municipio of municipios()" [value]="municipio">
                   {{ municipio }}
@@ -118,8 +130,16 @@
               type="email"
               class="form-control"
               [value]="email()"
-              (input)="email.set($any($event.target).value)"
+              (input)="onEmailChange($any($event.target).value)"
             >
+            <div *ngIf="emailValido() !== null" class="mt-2">
+              <small *ngIf="!emailValido()" class="text-danger">
+                ⚠️ Por favor, ingrese un correo electrónico válido
+              </small>
+              <small *ngIf="emailValido()" class="text-success">
+                ✔️ Correo electrónico válido
+              </small>
+            </div>
           </div>
 
           <div>
@@ -131,8 +151,15 @@
               type="tel"
               class="form-control"
               [value]="phone()"
-              (input)="phone.set($any($event.target).value)" 
+              (input)="onPhoneChange($any($event.target).value)" 
             >
+            <div *ngIf="phoneValido() !== null" class="mt-2">
+              <small *ngIf="!phoneValido()" class="text-danger">
+                ⚠️ Por favor, ingrese un número de teléfono válido
+              </small>
+              <small *ngIf="phoneValido()" class="text-success">
+                ✔️ Número de teléfono válido
+              </small>
           </div>
           </div>
 

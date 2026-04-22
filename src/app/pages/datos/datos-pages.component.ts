@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 @Component({
   standalone: true,
@@ -6,13 +6,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './datos-pages.component.html',
   styleUrls: ['./datos-pages.component.css']
 })
-export class DatosPagesComponent {
+export class DatosPagesComponent implements OnInit {
 
   name = signal<string>('');
   lastname = signal<string>('');
   email = signal<string>('');
+  emailValido = signal<boolean  | null>(null);
   birthdate = signal<string>('');
+  fechaMaxima = signal<string>('');
+  esMayorDeEdad = signal<boolean | null>(null);
   phone = signal<string>('');
+  phoneValido = signal<boolean | null>(null);
   estado = signal<string>('');
   municipio = signal<string>('');
   municipios = signal<string[]>([]);
@@ -25,22 +29,76 @@ export class DatosPagesComponent {
       'Venustiano Carranza', 'Xochimilco'
     ],
     'Estado de México': [
-      'Ecatepec', 'Nezahualcóyotl', 'Toluca', 'Naucalpan',
-      'Tlalnepantla', 'Chimalhuacán', 'Atizapán',
-      'Cuautitlán Izcalli', 'Ixtapaluca', 'Texcoco'
+      'Acolman', 'Almoloya de Juárez','Atizapan de Zaragoza','Atlacomulco','Chalco',
+      'Chimalhuacán', 'Chicoloapan', 'Chimalhuacán', 'Coacalco de Berriozábal','Cuautitlán', 'Cuautitlán Izcalli',
+      'Ecatepec de Morelos', 'Huehuetoca','Huixquilucan','Ixtapaluca','Ixtlahuaca','Jaltenco','Jilotepec','La Paz',
+      'Lerma','Metepec','Naucalpan de Juárez','Nezahualcóyotl','Nicolás Romero','San Felipe del Progreso','San Jose del Rincon','San Mateo Atenco',
+      'Tecámac','Tejupilco','Temoaya','Tenancingo','Tenango del Valle','Teoloyucan','Teotihuacán','Texcoco','Tlalnepantla de Baz','Toluca',
+      'Tultepec','Tultitlán','Valle de Bravo','Valle de Chalco Solidaridad','Villa de Victoria','Xonacatlán','Zinatepec','Zumpango'
     ]
   };
-  onEstadoChange(event: any) {
-    const value = event.target.value;
-    this.estado.set(value);
-    this.municipios.set(this.catalogo[value] || []);
-    this.municipio.set('');
+  ngOnInit() {
+    const today = new Date();
+    const year = today.getFullYear() - 18;
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    this.fechaMaxima.set(`${year}-${month}-${day}`);
+  }
+  calcularEdad(fecha: string): number {
+    const nacimiento = new Date(fecha);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+      edad--;
+    }
+    return edad;
+  }
+  onFechaChange(fecha: string) {
+    this.birthdate.set(fecha);
+    if (!fecha) {
+      this.esMayorDeEdad.set(null);
+      return;
+    }
+    const edad = this.calcularEdad(fecha);
+    this.esMayorDeEdad.set(edad >= 18);
   }
 
+  onEmailChange(valor: string) {
+    this.email.set(valor);
+    if (!valor) {
+      this.emailValido.set(null);
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    this.emailValido.set(emailRegex.test(valor));
+  }
+
+  onPhoneChange(valor: string) {
+    this.phone.set(valor);
+    if (!valor) {
+      this.phoneValido.set(null);
+      return;
+    }
+    const phoneRegex = /^[0-9]{10}$/;
+    this.phoneValido.set(phoneRegex.test(valor));
+  }
+
+
+  onEstadoChange(event: any) {
+    const value = event.target.value;
+    console.log('Estado seleccionado:', value);
+    this.estado.set(value);
+    this.municipios.set(this.catalogo[value] || []);
+  }
   addPerson(): void {
 
     if (!this.name() || !this.lastname() || !this.email() || !this.birthdate() || !this.phone()) {
       alert('Por favor, completa todos los campos');
+      return;
+    }
+    if (!this.esMayorDeEdad()) {
+      alert('Debes ser mayor de edad para registrarte');
       return;
     }
     const data = localStorage.getItem('personas');
@@ -54,12 +112,10 @@ export class DatosPagesComponent {
         p.email.toLowerCase() === `${this.name().toLowerCase()}.${this.lastname().toLowerCase()}@example.com` &&
         p.phone === this.phone()
     );
-
     if (exists) {
       alert('La persona ya se encuentra registrada');
       return;
     }
-
     persons.push({
       nombre: this.name(),
       apellido: this.lastname(),
@@ -69,10 +125,8 @@ export class DatosPagesComponent {
       estado: this.estado(),
       municipio: this.municipio()
     });
-
     localStorage.setItem('personas', JSON.stringify(persons));
     alert('Persona registrada exitosamente');
-
     this.name.set('');
     this.lastname.set('');
     this.birthdate.set('');
