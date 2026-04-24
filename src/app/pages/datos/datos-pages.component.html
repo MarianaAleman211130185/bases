@@ -1,176 +1,152 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
+    <div class="col-md-10 col-lg-9">
       <div class="card ine-card shadow-sm">
         <div class="card-header ine-card-header text-center">
           <i class="bi bi-person-vcard-fill fs-4"></i>
           <div class="mt-1">Registro de Persona</div>
         </div>
+
         <div class="card-body">
           <p class="text-center text-muted mb-4">
-            Captura de datos básicos de identificación
+            Bienvenido al sistema de registro de personas. Por favor, complete los siguientes campos con su información personal para crear su perfil.
           </p>
 
-          <div class="mb-3">
-            <label class="form-label ine-label">
-              <i class="bi bi-person-fill me-1"></i>
-              Nombre(s):
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              [value]="name()"
-              (input)="name.set($any($event.target).value)"
-            >
+          <div class="steps mb-4 text-center">
+            <span class="step" [class.active]="true">1</span>
+            <span class="step" [class.active]="paso1Completo()">2</span>
+            <span class="step" [class.active]="esPaso3Completo()">3</span>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label ine-label">
-              <i class="bi bi-person-badge-fill me-1"></i>
-              Apellido Materno:
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              [value]="lastname()"
-              (input)="lastname.set($any($event.target).value)"
-            >
+          <!-- Sección 1: Datos básicos -->
+          <div class="mb-4">
+            <p class="section-title">Captura de datos básicos de identificación</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-person-fill me-1"></i> Nombre(s):
+                </label>
+                <input type="text" class="form-control"
+                  [value]="name()"
+                  (input)="name.set($any($event.target).value)">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-person-badge-fill me-1"></i> Apellido Materno:
+                </label>
+                <input type="text" class="form-control"
+                  [value]="lastnameMat()"
+                  (input)="lastnameMat.set($any($event.target).value)">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-person-badge-fill me-1"></i> Apellido Paterno:
+                </label>
+                <input type="text" class="form-control"
+                  [value]="lastnamePat()"
+                  (input)="lastnamePat.set($any($event.target).value)">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-calendar-fill me-1"></i> Fecha de Nacimiento:
+                </label>
+                <input type="date" class="form-control"
+                  [max]="fechaMaxima()"
+                  [value]="birthdate()"
+                  (input)="onFechaChange($any($event.target).value)">
+                <div *ngIf="esMayorDeEdad() !== null" class="mt-2">
+                  <small *ngIf="!esMayorDeEdad()" class="text-danger">
+                    ❌ Debe ser mayor de edad (18+)
+                  </small>
+                  <small *ngIf="esMayorDeEdad()" class="text-success">
+                    ✔️ Apto para registro
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-gender-ambiguous me-1"></i> Género:
+                </label>
+                <select class="form-control">
+                  <option value="">Selecciona género</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+            </div>
           </div>
 
-            <div class="mb-3">
-            <label class="form-label ine-label">
-              <i class="bi bi-person-badge-fill me-1"></i>
-              Apellido Paterno:
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              [value]="lastname()"
-              (input)="lastname.set($any($event.target).value)"
-            >
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label ine-label">
-              <i class="bi bi-calendar-fill me-1"></i>
-              Fecha de Nacimiento:
-            </label>
-            <input
-              type="date"
-              class="form-control"
-              [max]="fechaMaxima()"
-              [value]="birthdate()"
-              (input)="onFechaChange($any($event.target).value)"
-            >
-              <div *ngIf="esMayorDeEdad() !== null" class="mt-2">
-              <small *ngIf="!esMayorDeEdad()" class="text-danger">
-                ⚠️ Debe ser mayor de edad (18+)
-              </small>
-            <small *ngIf="esMayorDeEdad()" class="text-success">
-                ✔️ Apto para registro
-              </small>
-            </div>  
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label ine-label">
-              <i class="bi bi-geo-alt-fill me-1"></i>
-              Genero:
-            </label>
-            <select class="form-control">
-              <option value="">Selecciona género</option>
-              <option value="M">Masculino</option>
-              <option value="F">Femenino</option>
-              <option value="O">Otro</option>
-            </select>
-          </div>
-
-          <div class="card-body">
-            <p class="text-center text-muted mb-4">
-            Captura de Residencia
-            </p>
-          <div>
-              <label class="form-label ine-label">
-                <i class="bi bi-geo-alt-fill me-1"></i>
-                Estado de Residencia: 
-              </label>
+          <!-- Sección 2: Residencia -->
+          <div class="mb-4">
+            <p class="section-title">Captura de Residencia</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-geo-alt-fill me-1"></i> Estado de Residencia:
+                </label>
+                <select class="form-control" (change)="onEstadoChange($event)">
+                  <option value="">Selecciona una entidad</option>
+                  <option value="CDMX">CDMX</option>
+                  <option value="Estado de México">Estado de México</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-geo-alt-fill me-1"></i> Municipio o Alcaldía de Residencia:
+                </label>
                 <select class="form-control"
-                (change)="onEstadoChange($event)"
-                >
-                <option value="">Selecciona una entidad</option>
-                <option value="CDMX">CDMX</option>
-                <option value="Estado de México">Estado de México</option>
-              </select>
-          </div>
-            <div>
-              <label class="form-label ine-label">
-                <i class="bi bi-geo-alt-fill me-1"></i>
-                Municipio o Alcaldía de Residencia: 
-              </label>
-              <select class="form-control"
-                [disabled]="municipios().length === 0"
-                (change)="municipio.set($any($event.target).value)"
-              >
-                <option value="">Selecciona un municipio</option>
-                <option *ngFor="let municipio of municipios()" [value]="municipio">
-                  {{ municipio }}
-                </option>
-              </select>
-            </div>
-          <div class="card-body">
-            <p class="text-center text-muted mb-4">
-            Captura de Contacto
-            </p>
-          <div class="mb-3">
-            <label class="form-label ine-label">
-              <i class="bi bi-envelope-fill me-1"></i>
-              Email:
-            </label>
-            <input
-              type="email"
-              class="form-control"
-              [value]="email()"
-              (input)="onEmailChange($any($event.target).value)"
-            >
-            <div *ngIf="emailValido() !== null" class="mt-2">
-              <small *ngIf="!emailValido()" class="text-danger">
-                ⚠️ Por favor, ingrese un correo electrónico válido
-              </small>
-              <small *ngIf="emailValido()" class="text-success">
-                ✔️ Correo electrónico válido
-              </small>
+                  [disabled]="municipios().length === 0"
+                  (change)="municipio.set($any($event.target).value)">
+                  <option value="">Selecciona un municipio</option>
+                  <option *ngFor="let m of municipios()" [value]="m">{{ m }}</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <div>
-            <label class="form-label ine-label">
-              <i class="bi bi-geo-alt-fill me-1"></i>
-              Numero de Teléfono: 
-            </label>
-            <input
-              type="tel"
-              class="form-control"
-              [value]="phone()"
-              (input)="onPhoneChange($any($event.target).value)" 
-            >
-            <div *ngIf="phoneValido() !== null" class="mt-2">
-              <small *ngIf="!phoneValido()" class="text-danger">
-                ⚠️ Por favor, ingrese un número de teléfono válido
-              </small>
-              <small *ngIf="phoneValido()" class="text-success">
-                ✔️ Número de teléfono válido
-              </small>
-          </div>
-          </div>
-
-          <div class="d-grid mt-4">
-            <button
-              class="btn btn-ine"
-              (click)="addPerson()"
-            >
-              <i class="bi bi-check-circle-fill me-2"></i>
-              Registrar persona
-            </button>
+          <!-- Sección 3: Contacto -->
+          <div class="mb-4">
+            <p class="section-title">Captura de Contacto</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-envelope-fill me-1"></i> Email:
+                </label>
+                <input type="email" class="form-control"
+                  [value]="email()"
+                  (input)="onEmailChange($any($event.target).value)">
+                <div *ngIf="emailValido() !== null" class="mt-2">
+                  <small *ngIf="!emailValido()" class="text-danger">
+                    ❌ Por favor, ingrese un correo electrónico válido
+                  </small>
+                  <small *ngIf="emailValido()" class="text-success">
+                    ✔️ Correo electrónico válido
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-telephone-fill me-1"></i> Número de Teléfono:
+                </label>
+                <input type="tel" class="form-control"
+                  [value]="phone()"
+                  (input)="onPhoneChange($any($event.target).value)">
+                <div *ngIf="phoneValido() !== null" class="mt-2">
+                  <small *ngIf="!phoneValido()" class="text-danger">
+                    ❌ Por favor, ingrese un número de teléfono válido
+                  </small>
+                  <small *ngIf="phoneValido()" class="text-success">
+                    ✔️ Número de teléfono válido
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="d-grid mt-4">
+              <button class="btn btn-ine" (click)="addPerson()">
+                <i class="bi bi-check-circle-fill me-2"></i> Registrar persona
+              </button>
+            </div>
           </div>
         </div>
       </div>

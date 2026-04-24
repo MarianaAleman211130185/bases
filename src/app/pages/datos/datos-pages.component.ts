@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
 export class DatosPagesComponent implements OnInit {
 
   name = signal<string>('');
-  lastname = signal<string>('');
+  lastnameMat = signal<string>('');
+  lastnamePat = signal<string>('');
   email = signal<string>('');
   emailValido = signal<boolean  | null>(null);
   birthdate = signal<string>('');
@@ -84,7 +85,6 @@ export class DatosPagesComponent implements OnInit {
     this.phoneValido.set(phoneRegex.test(valor));
   }
 
-
   onEstadoChange(event: any) {
     const value = event.target.value;
     console.log('Estado seleccionado:', value);
@@ -92,13 +92,29 @@ export class DatosPagesComponent implements OnInit {
     this.municipios.set(this.catalogo[value] || []);
   }
   addPerson(): void {
-
-    if (!this.name() || !this.lastname() || !this.email() || !this.birthdate() || !this.phone()) {
-      alert('Por favor, completa todos los campos');
+    if (!this.name() || !this.lastnameMat() || !this.lastnamePat() || !this.email() || !this.birthdate() || !this.phone() || !this.estado() || !this.municipio()) {
+      alert('Por favor, completa todos los campos requeridos');
       return;
     }
-    if (!this.esMayorDeEdad()) {
+    if (this.esMayorDeEdad() !== true) {
       alert('Debes ser mayor de edad para registrarte');
+       return;
+    } 
+    if (this.emailValido() !== true) {
+        alert('Por favor, ingresa un correo electrónico válido');
+        return;
+    }
+
+      if (this.phoneValido() !== true) {
+        alert('Por favor, ingresa un número de teléfono válido');
+        return;
+      }
+    if (!this.estado()) {
+      alert('Por favor, selecciona un estado de residencia');
+      return;
+    }
+    if (!this.municipio()) {
+      alert('Por favor, selecciona un municipio de residencia');
       return;
     }
     const data = localStorage.getItem('personas');
@@ -107,9 +123,10 @@ export class DatosPagesComponent implements OnInit {
     const exists = persons.some(
       (p: any) => 
         p.nombre.toLowerCase() === this.name().toLowerCase() &&
-        p.apellido.toLowerCase() === this.lastname().toLowerCase() &&
+        p.apellidoMaterno.toLowerCase() === this.lastnameMat().toLowerCase() &&
+        p.apellidoPaterno.toLowerCase() === this.lastnamePat().toLowerCase() &&
         p.birthdate === this.birthdate() &&
-        p.email.toLowerCase() === `${this.name().toLowerCase()}.${this.lastname().toLowerCase()}@example.com` &&
+        p.email.toLowerCase() === `${this.name().toLowerCase()}.${this.lastnameMat().toLowerCase()}@example.com` &&
         p.phone === this.phone()
     );
     if (exists) {
@@ -118,9 +135,10 @@ export class DatosPagesComponent implements OnInit {
     }
     persons.push({
       nombre: this.name(),
-      apellido: this.lastname(),
+      apellidoMaterno: this.lastnameMat(),
+      apellidoPaterno: this.lastnamePat(),
       birthdate: this.birthdate(),
-      email: `${this.name().toLowerCase()}.${this.lastname().toLowerCase()}@example.com`,
+      email: `${this.name().toLowerCase()}.${this.lastnameMat ().toLowerCase()}@example.com`,
       phone: this.phone(),
       estado: this.estado(),
       municipio: this.municipio()
@@ -128,11 +146,21 @@ export class DatosPagesComponent implements OnInit {
     localStorage.setItem('personas', JSON.stringify(persons));
     alert('Persona registrada exitosamente');
     this.name.set('');
-    this.lastname.set('');
+    this.lastnameMat.set('');
+    this.lastnamePat.set('');
     this.birthdate.set('');
     this.email.set('');
     this.phone.set('');
     this.estado.set('');
     this.municipio.set('');
+  }
+  paso1Completo(): boolean {
+    return this.name() !== '' && this.lastnameMat() !== '' && this.lastnamePat() !== '';
+  }
+  paso2Completo(): boolean {
+    return this.emailValido() === true && this.birthdate() !== '' && this.esMayorDeEdad() === true;
+  }
+  esPaso3Completo(): boolean { 
+    return this.phoneValido() === true && this.estado() !== '' && this.municipio() !== '';
   }
 }

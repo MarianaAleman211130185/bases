@@ -81,3 +81,32 @@ body{
 .btn-ine:hover {
   background-color: #7a1536;
 }
+/* STEPS */
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.step {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.step.active {
+  background: #9c1c4c;
+  color: white;
+}
+
+.section-title {
+  border-left: 4px solid #9c1c4c;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
