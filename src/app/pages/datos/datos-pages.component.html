@@ -7,11 +7,10 @@
           <div class="mt-1">Registro de Persona</div>
         </div>
 
-        <div class="card-body">
+        <div class="mt-4 card-body">
           <p class="text-center text-muted mb-4">
             Bienvenido al sistema de registro de personas. Por favor, complete los siguientes campos con su información personal para crear su perfil.
           </p>
-
           <div class="steps mb-4 text-center">
             <span class="step" [class.active]="true">1</span>
             <span class="step" [class.active]="paso1Completo()">2</span>
@@ -141,7 +140,8 @@
                   </small>
                 </div>
               </div>
-            </div>
+            </div>  
+            
             <div class="d-grid mt-4">
               <button class="btn btn-ine" (click)="addPerson()">
                 <i class="bi bi-check-circle-fill me-2"></i> Registrar persona
