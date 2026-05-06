@@ -27,7 +27,7 @@
                 </label>
                 <input type="text" class="form-control"
                   [value]="name()"
-                  (input)="name.set($any($event.target).value)">
+                  (input)="name.set($any($event.target).value); guardarCache()">
               </div>
               <div class="col-md-6">
                 <label class="form-label ine-label">
@@ -35,7 +35,7 @@
                 </label>
                 <input type="text" class="form-control"
                   [value]="lastnameMat()"
-                  (input)="lastnameMat.set($any($event.target).value)">
+                  (input)="lastnameMat.set($any($event.target).value); guardarCache()">
               </div>
               <div class="col-md-6">
                 <label class="form-label ine-label">
@@ -43,7 +43,7 @@
                 </label>
                 <input type="text" class="form-control"
                   [value]="lastnamePat()"
-                  (input)="lastnamePat.set($any($event.target).value)">
+                  (input)="lastnamePat.set($any($event.target).value); guardarCache()">
               </div>
               <div class="col-md-6">
                 <label class="form-label ine-label">
@@ -52,7 +52,7 @@
                 <input type="date" class="form-control"
                   [max]="fechaMaxima()"
                   [value]="birthdate()"
-                  (input)="onFechaChange($any($event.target).value)">
+                  (input)="onFechaChange($any($event.target).value); guardarCache()">
                 <div *ngIf="esMayorDeEdad() !== null" class="mt-2">
                   <small *ngIf="!esMayorDeEdad()" class="text-danger">
                     ❌ Debe ser mayor de edad (18+)
@@ -66,7 +66,7 @@
                 <label class="form-label ine-label">
                   <i class="bi bi-gender-ambiguous me-1"></i> Género:
                 </label>
-                <select class="form-control">
+                <select class="form-control" (change)="guardarCache()">
                   <option value="">Selecciona género</option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
@@ -84,7 +84,7 @@
                 <label class="form-label ine-label">
                   <i class="bi bi-geo-alt-fill me-1"></i> Estado de Residencia:
                 </label>
-                <select class="form-control" (change)="onEstadoChange($event)">
+                <select class="form-control" (change)="onEstadoChange($event); guardarCache()">
                   <option value="">Selecciona una entidad</option>
                   <option value="CDMX">CDMX</option>
                   <option value="Estado de México">Estado de México</option>
@@ -96,7 +96,7 @@
                 </label>
                 <select class="form-control"
                   [disabled]="municipios().length === 0"
-                  (change)="municipio.set($any($event.target).value)">
+                  (change)="municipio.set($any($event.target).value); guardarCache()">
                   <option value="">Selecciona un municipio</option>
                   <option *ngFor="let m of municipios()" [value]="m">{{ m }}</option>
                 </select>
@@ -114,7 +114,7 @@
                 </label>
                 <input type="email" class="form-control"
                   [value]="email()"
-                  (input)="onEmailChange($any($event.target).value)">
+                  (input)="onEmailChange($any($event.target).value); guardarCache()">
                 <div *ngIf="emailValido() !== null" class="mt-2">
                   <small *ngIf="!emailValido()" class="text-danger">
                     ❌ Por favor, ingrese un correo electrónico válido
@@ -130,7 +130,7 @@
                 </label>
                 <input type="tel" class="form-control"
                   [value]="phone()"
-                  (input)="onPhoneChange($any($event.target).value)">
+                  (input)="onPhoneChange($any($event.target).value); guardarCache()">
                 <div *ngIf="phoneValido() !== null" class="mt-2">
                   <small *ngIf="!phoneValido()" class="text-danger">
                     ❌ Por favor, ingrese un número de teléfono válido

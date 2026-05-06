@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 @Component({
   standalone: true,
   imports: [CommonModule],
@@ -12,7 +13,7 @@ export class DatosPagesComponent implements OnInit {
   lastnameMat = signal<string>('');
   lastnamePat = signal<string>('');
   email = signal<string>('');
-  emailValido = signal<boolean  | null>(null);
+  emailValido = signal<boolean | null>(null);
   birthdate = signal<string>('');
   fechaMaxima = signal<string>('');
   esMayorDeEdad = signal<boolean | null>(null);
@@ -21,7 +22,8 @@ export class DatosPagesComponent implements OnInit {
   estado = signal<string>('');
   municipio = signal<string>('');
   municipios = signal<string[]>([]);
-   catalogo: any = {
+
+  catalogo: any = {
     'CDMX': [
       'Álvaro Obregón', 'Azcapotzalco', 'Benito Juárez', 'Coyoacán',
       'Cuajimalpa', 'Cuauhtémoc', 'Gustavo A. Madero', 'Iztacalco',
@@ -38,13 +40,65 @@ export class DatosPagesComponent implements OnInit {
       'Tultepec','Tultitlán','Valle de Bravo','Valle de Chalco Solidaridad','Villa de Victoria','Xonacatlán','Zinatepec','Zumpango'
     ]
   };
+
+  guardarCache() {
+    const data = {
+      name: this.name(),
+      lastnameMat: this.lastnameMat(),
+      lastnamePat: this.lastnamePat(),
+      email: this.email(),
+      phone: this.phone(),
+      estado: this.estado(),
+      municipio: this.municipio(),
+      birthdate: this.birthdate()
+    };
+
+    localStorage.setItem('formCache', JSON.stringify(data));
+  }
+
   ngOnInit() {
     const today = new Date();
     const year = today.getFullYear() - 18;
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     this.fechaMaxima.set(`${year}-${month}-${day}`);
+
+    const cache = localStorage.getItem('formCache');
+
+    if (cache) {
+      const data = JSON.parse(cache);
+
+      this.name.set(data.name || '');
+      this.lastnameMat.set(data.lastnameMat || '');
+      this.lastnamePat.set(data.lastnamePat || '');
+      this.email.set(data.email || '');
+      this.phone.set(data.phone || '');
+      this.estado.set(data.estado || '');
+      this.municipio.set(data.municipio || '');
+      this.birthdate.set(data.birthdate || '');
+
+
+      if (data.birthdate) {
+        const edad = this.calcularEdad(data.birthdate);
+        this.esMayorDeEdad.set(edad >= 18);
+      }
+
+      if (data.email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        this.emailValido.set(emailRegex.test(data.email));
+      }
+
+      if (data.phone) {
+        const phoneRegex = /^[0-9]{10}$/;
+        this.phoneValido.set(phoneRegex.test(data.phone));
+      }
+
+      if (data.estado) {
+        this.municipios.set(this.catalogo[data.estado] || []);
+      }
+    }
   }
+
   calcularEdad(fecha: string): number {
     const nacimiento = new Date(fecha);
     const hoy = new Date();
@@ -55,68 +109,83 @@ export class DatosPagesComponent implements OnInit {
     }
     return edad;
   }
+
   onFechaChange(fecha: string) {
     this.birthdate.set(fecha);
+
     if (!fecha) {
       this.esMayorDeEdad.set(null);
+      this.guardarCache();
       return;
     }
+
     const edad = this.calcularEdad(fecha);
     this.esMayorDeEdad.set(edad >= 18);
+
+    this.guardarCache();
   }
 
   onEmailChange(valor: string) {
     this.email.set(valor);
+
     if (!valor) {
       this.emailValido.set(null);
+      this.guardarCache();
       return;
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     this.emailValido.set(emailRegex.test(valor));
+
+    this.guardarCache();
   }
 
   onPhoneChange(valor: string) {
     this.phone.set(valor);
+
     if (!valor) {
       this.phoneValido.set(null);
+      this.guardarCache();
       return;
     }
+
     const phoneRegex = /^[0-9]{10}$/;
     this.phoneValido.set(phoneRegex.test(valor));
+
+    this.guardarCache();
   }
 
   onEstadoChange(event: any) {
     const value = event.target.value;
     console.log('Estado seleccionado:', value);
+
     this.estado.set(value);
     this.municipios.set(this.catalogo[value] || []);
+
+    this.guardarCache();
   }
+
   addPerson(): void {
     if (!this.name() || !this.lastnameMat() || !this.lastnamePat() || !this.email() || !this.birthdate() || !this.phone() || !this.estado() || !this.municipio()) {
       alert('Por favor, completa todos los campos requeridos');
       return;
     }
+
     if (this.esMayorDeEdad() !== true) {
       alert('Debes ser mayor de edad para registrarte');
-       return;
-    } 
-    if (this.emailValido() !== true) {
-        alert('Por favor, ingresa un correo electrónico válido');
-        return;
+      return;
     }
 
-      if (this.phoneValido() !== true) {
-        alert('Por favor, ingresa un número de teléfono válido');
-        return;
-      }
-    if (!this.estado()) {
-      alert('Por favor, selecciona un estado de residencia');
+    if (this.emailValido() !== true) {
+      alert('Por favor, ingresa un correo electrónico válido');
       return;
     }
-    if (!this.municipio()) {
-      alert('Por favor, selecciona un municipio de residencia');
+
+    if (this.phoneValido() !== true) {
+      alert('Por favor, ingresa un número de teléfono válido');
       return;
     }
+
     const data = localStorage.getItem('personas');
     const persons = data ? JSON.parse(data) : [];
 
@@ -126,25 +195,32 @@ export class DatosPagesComponent implements OnInit {
         p.apellidoMaterno.toLowerCase() === this.lastnameMat().toLowerCase() &&
         p.apellidoPaterno.toLowerCase() === this.lastnamePat().toLowerCase() &&
         p.birthdate === this.birthdate() &&
-        p.email.toLowerCase() === `${this.name().toLowerCase()}.${this.lastnameMat().toLowerCase()}@example.com` &&
         p.phone === this.phone()
     );
+
     if (exists) {
       alert('La persona ya se encuentra registrada');
       return;
     }
+
     persons.push({
       nombre: this.name(),
       apellidoMaterno: this.lastnameMat(),
       apellidoPaterno: this.lastnamePat(),
       birthdate: this.birthdate(),
-      email: `${this.name().toLowerCase()}.${this.lastnameMat ().toLowerCase()}@example.com`,
+      email: this.email(),
       phone: this.phone(),
       estado: this.estado(),
       municipio: this.municipio()
     });
+
     localStorage.setItem('personas', JSON.stringify(persons));
+
+
+    localStorage.removeItem('formCache');
+
     alert('Persona registrada exitosamente');
+
     this.name.set('');
     this.lastnameMat.set('');
     this.lastnamePat.set('');
@@ -154,12 +230,15 @@ export class DatosPagesComponent implements OnInit {
     this.estado.set('');
     this.municipio.set('');
   }
+
   paso1Completo(): boolean {
     return this.name() !== '' && this.lastnameMat() !== '' && this.lastnamePat() !== '';
   }
+
   paso2Completo(): boolean {
     return this.emailValido() === true && this.birthdate() !== '' && this.esMayorDeEdad() === true;
   }
+
   esPaso3Completo(): boolean { 
     return this.phoneValido() === true && this.estado() !== '' && this.municipio() !== '';
   }
