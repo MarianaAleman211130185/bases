@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PersonService, Person } from '../../services/person.service';
 
 @Component({
   standalone: true,
@@ -8,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./datos-pages.component.css']
 })
 export class DatosPagesComponent implements OnInit {
-
+  constructor(private personService: PersonService) {}
   name = signal<string>('');
   lastnameMat = signal<string>('');
   lastnamePat = signal<string>('');
@@ -203,6 +204,14 @@ export class DatosPagesComponent implements OnInit {
       return;
     }
 
+  const nuevaPersona: Person = {
+    id: Math.floor(Math.random() * 1000),
+    nombre: this.name(),
+    apellido: this.lastnamePat(),
+    email: this.email()
+  };
+  this.personService.createPerson(nuevaPersona).subscribe({
+  next: (response) => {
     persons.push({
       nombre: this.name(),
       apellidoMaterno: this.lastnameMat(),
@@ -213,13 +222,23 @@ export class DatosPagesComponent implements OnInit {
       estado: this.estado(),
       municipio: this.municipio()
     });
-
     localStorage.setItem('personas', JSON.stringify(persons));
-
-
-    localStorage.removeItem('formCache');
-
-    alert('Persona registrada exitosamente');
+    console.log('Persona guardada en API:', response);
+    alert('Persona registrada correctamente');
+    this.name.set('');
+    this.lastnameMat.set('');
+    this.lastnamePat.set('');
+    this.birthdate.set('');
+    this.email.set('');
+    this.phone.set('');
+    this.estado.set('');
+    this.municipio.set('');
+  },
+  error: (error) => {
+    console.error(error);
+    alert('Error al guardar en la API');
+  }
+});
 
     this.name.set('');
     this.lastnameMat.set('');
