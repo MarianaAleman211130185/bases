@@ -66,12 +66,14 @@
                 <label class="form-label ine-label">
                   <i class="bi bi-gender-ambiguous me-1"></i> Género:
                 </label>
-                <select class="form-control" (change)="guardarCache()">
-                  <option value="">Selecciona género</option>
-                  <option value="Masculino">Masculino</option>
-                  <option value="Femenino">Femenino</option>
-                  <option value="Otro">Otro</option>
-                </select>
+                <select class="form-control"
+                    [value]="genero()"
+                    (change)="genero.set($any($event.target).value); guardarCache()">
+                    <option value="">Selecciona género</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
+                  </select>
               </div>
             </div>
           </div>

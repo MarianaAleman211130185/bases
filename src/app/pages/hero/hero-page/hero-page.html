@@ -15,7 +15,8 @@
           <tr>
             <th>#</th>
             <th>Nombre</th>
-            <th>Apellido</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
             <th>Email</th>
           </tr>
         </thead>
@@ -25,7 +26,8 @@
           <tr *ngFor="let p of persons(); let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ p.nombre }}</td>
-            <td>{{ p.apellido }}</td>
+            <td>{{ p.apellidoPaterno }}</td>
+            <td>{{ p.apellidoMaterno }}</td>
             <td>{{ p.email }}</td>
           </tr>
 

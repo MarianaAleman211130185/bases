@@ -16,6 +16,7 @@ export class DatosPagesComponent implements OnInit {
   email = signal<string>('');
   emailValido = signal<boolean | null>(null);
   birthdate = signal<string>('');
+  genero = signal<string>('');
   fechaMaxima = signal<string>('');
   esMayorDeEdad = signal<boolean | null>(null);
   phone = signal<string>('');
@@ -51,7 +52,8 @@ export class DatosPagesComponent implements OnInit {
       phone: this.phone(),
       estado: this.estado(),
       municipio: this.municipio(),
-      birthdate: this.birthdate()
+      birthdate: this.birthdate(),
+      genero: this.genero()
     };
 
     localStorage.setItem('formCache', JSON.stringify(data));
@@ -77,6 +79,7 @@ export class DatosPagesComponent implements OnInit {
       this.estado.set(data.estado || '');
       this.municipio.set(data.municipio || '');
       this.birthdate.set(data.birthdate || '');
+      this.genero.set(data.genero || '');
 
 
       if (data.birthdate) {
@@ -167,7 +170,7 @@ export class DatosPagesComponent implements OnInit {
   }
 
   addPerson(): void {
-    if (!this.name() || !this.lastnameMat() || !this.lastnamePat() || !this.email() || !this.birthdate() || !this.phone() || !this.estado() || !this.municipio()) {
+    if (!this.name() || !this.lastnameMat() || !this.lastnamePat() || !this.genero() || !this.email() || !this.birthdate() || !this.phone() || !this.estado() || !this.municipio()) {
       alert('Por favor, completa todos los campos requeridos');
       return;
     }
@@ -196,6 +199,10 @@ export class DatosPagesComponent implements OnInit {
         p.apellidoMaterno.toLowerCase() === this.lastnameMat().toLowerCase() &&
         p.apellidoPaterno.toLowerCase() === this.lastnamePat().toLowerCase() &&
         p.birthdate === this.birthdate() &&
+        p.genero === this.genero() &&
+        p.estado === this.estado() &&
+        p.municipio === this.municipio() &&
+        p.email.toLowerCase() === this.email().toLowerCase() &&
         p.phone === this.phone()
     );
 
@@ -207,16 +214,25 @@ export class DatosPagesComponent implements OnInit {
   const nuevaPersona: Person = {
     id: Math.floor(Math.random() * 1000),
     nombre: this.name(),
-    apellido: this.lastnamePat(),
-    email: this.email()
+    apellidoMaterno: this.lastnameMat(),
+    apellidoPaterno: this.lastnamePat(),
+    birthdate: this.birthdate(),
+    genero: this.genero(),
+    estado: this.estado(),
+    municipio: this.municipio(),
+    email: this.email(),
+    phone: this.phone()
+
   };
   this.personService.createPerson(nuevaPersona).subscribe({
   next: (response) => {
     persons.push({
+      id: nuevaPersona.id,
       nombre: this.name(),
       apellidoMaterno: this.lastnameMat(),
       apellidoPaterno: this.lastnamePat(),
       birthdate: this.birthdate(),
+      genero: this.genero(),  
       email: this.email(),
       phone: this.phone(),
       estado: this.estado(),
@@ -225,10 +241,12 @@ export class DatosPagesComponent implements OnInit {
     localStorage.setItem('personas', JSON.stringify(persons));
     console.log('Persona guardada en API:', response);
     alert('Persona registrada correctamente');
+    localStorage.removeItem('formCache');
     this.name.set('');
     this.lastnameMat.set('');
     this.lastnamePat.set('');
     this.birthdate.set('');
+    this.genero.set('');
     this.email.set('');
     this.phone.set('');
     this.estado.set('');
@@ -236,7 +254,6 @@ export class DatosPagesComponent implements OnInit {
   },
   error: (error) => {
     console.error(error);
-    alert('Error al guardar en la API');
   }
 });
 
@@ -244,6 +261,7 @@ export class DatosPagesComponent implements OnInit {
     this.lastnameMat.set('');
     this.lastnamePat.set('');
     this.birthdate.set('');
+    this.genero.set('');
     this.email.set('');
     this.phone.set('');
     this.estado.set('');

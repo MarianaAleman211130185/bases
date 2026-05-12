@@ -5,8 +5,14 @@ import { Observable } from 'rxjs';
 export interface Person {
   id: number;
   nombre: string;
-  apellido: string;
+  apellidoMaterno: string;
+  apellidoPaterno: string;
+  birthdate: string;
+  genero: string;
+  estado: string;
+  municipio: string;
   email: string;
+  phone: string;
 }
 
 @Injectable({
