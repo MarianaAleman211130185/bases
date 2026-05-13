@@ -212,7 +212,7 @@ export class DatosPagesComponent implements OnInit {
     }
 
   const nuevaPersona: Person = {
-    id: Math.floor(Math.random() * 1000),
+    id: persons.length > 0 ? persons[persons.length - 1].id + 1 : 1,
     nombre: this.name(),
     apellidoMaterno: this.lastnameMat(),
     apellidoPaterno: this.lastnamePat(),
@@ -222,26 +222,13 @@ export class DatosPagesComponent implements OnInit {
     municipio: this.municipio(),
     email: this.email(),
     phone: this.phone()
-
   };
+  console.log('Nueva persona a registrar:', nuevaPersona);
   this.personService.createPerson(nuevaPersona).subscribe({
-  next: (response) => {
-    persons.push({
-      id: nuevaPersona.id,
-      nombre: this.name(),
-      apellidoMaterno: this.lastnameMat(),
-      apellidoPaterno: this.lastnamePat(),
-      birthdate: this.birthdate(),
-      genero: this.genero(),  
-      email: this.email(),
-      phone: this.phone(),
-      estado: this.estado(),
-      municipio: this.municipio()
-    });
+    next: (response:Person) => {
+    persons.push(nuevaPersona);
     localStorage.setItem('personas', JSON.stringify(persons));
-    console.log('Persona guardada en API:', response);
-    alert('Persona registrada correctamente');
-    localStorage.removeItem('formCache');
+    alert('Persona registrada exitosamente');
     this.name.set('');
     this.lastnameMat.set('');
     this.lastnamePat.set('');
@@ -252,22 +239,12 @@ export class DatosPagesComponent implements OnInit {
     this.estado.set('');
     this.municipio.set('');
   },
-  error: (error) => {
-    console.error(error);
+  error: (error: any) => {
+    console.error('Error al registrar persona:', error);
+    alert('Ocurrió un error al registrar la persona. Por favor, intenta nuevamente.');
   }
-});
-
-    this.name.set('');
-    this.lastnameMat.set('');
-    this.lastnamePat.set('');
-    this.birthdate.set('');
-    this.genero.set('');
-    this.email.set('');
-    this.phone.set('');
-    this.estado.set('');
-    this.municipio.set('');
+  });
   }
-
   paso1Completo(): boolean {
     return this.name() !== '' && this.lastnameMat() !== '' && this.lastnamePat() !== '';
   }
