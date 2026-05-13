@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-10 col-lg-9">
+    <div class="col-md-8 col-lg-8">
       <div class="card ine-card shadow-sm">
         <div class="card-header ine-card-header text-center">
           <i class="bi bi-person-vcard-fill fs-4"></i>
@@ -21,7 +21,7 @@
           <div class="mb-4">
             <p class="section-title">Captura de datos básicos de identificación</p>
             <div class="row g-3">
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-person-fill me-1"></i> Nombre(s):
                 </label>
@@ -29,7 +29,7 @@
                   [value]="name()"
                   (input)="name.set($any($event.target).value); guardarCache()">
               </div>
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-person-badge-fill me-1"></i> Apellido Materno:
                 </label>
@@ -37,7 +37,7 @@
                   [value]="lastnameMat()"
                   (input)="lastnameMat.set($any($event.target).value); guardarCache()">
               </div>
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-person-badge-fill me-1"></i> Apellido Paterno:
                 </label>
@@ -45,7 +45,7 @@
                   [value]="lastnamePat()"
                   (input)="lastnamePat.set($any($event.target).value); guardarCache()">
               </div>
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-calendar-fill me-1"></i> Fecha de Nacimiento:
                 </label>
@@ -62,7 +62,7 @@
                   </small>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-gender-ambiguous me-1"></i> Género:
                 </label>
@@ -82,7 +82,7 @@
           <div class="mb-4">
             <p class="section-title">Captura de Residencia</p>
             <div class="row g-3">
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-geo-alt-fill me-1"></i> Estado de Residencia:
                 </label>
@@ -92,7 +92,7 @@
                   <option value="Estado de México">Estado de México</option>
                 </select>
               </div>
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-geo-alt-fill me-1"></i> Municipio o Alcaldía de Residencia:
                 </label>
@@ -110,7 +110,7 @@
           <div class="mb-4">
             <p class="section-title">Captura de Contacto</p>
             <div class="row g-3">
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-envelope-fill me-1"></i> Email:
                 </label>
@@ -126,7 +126,7 @@
                   </small>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
                   <i class="bi bi-telephone-fill me-1"></i> Número de Teléfono:
                 </label>

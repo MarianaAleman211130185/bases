@@ -41,11 +41,7 @@ body{
 }
 .card-body {
   font-family: Poppins, sans-serif;
-  display: grid;
-  grid-template-columns: 2fr;
-  gap: 15px;
-  align-items: center;
-  justify-content: center;
+  padding: 30px;
 }
 .card-body p {
   font-size: 1.15rem;
@@ -56,6 +52,7 @@ body{
   color: #555;
 }
 .form-control {
+  width: 95%;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
@@ -107,4 +104,21 @@ body{
   padding-left: 10px;
   margin-bottom: 15px;
   font-weight: 600;
+}
+.row.g-3 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.g-3 > div {
+  margin-bottom: 10px;
+}
+.row.g-3 {
+  row-gap: 20px;
+  column-gap: 10px;
+}
+
+.col-12.col-md-6 {
+  padding-right: 10px;
+  padding-left: 10px;
 }
