@@ -64,7 +64,23 @@
   transition: all 0.25s ease-in-out;
 }
 .info-box:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.info-icon {
+  width: 75px;
+  height: 75px; 
+  margin: auto;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: rgba(156, 28, 76, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info-icon i {
+  font-size: 2rem;
+  color: #9c1c4c;
 }
 .info-box h3 {
   font-family: "Poppins", sans-serif;
