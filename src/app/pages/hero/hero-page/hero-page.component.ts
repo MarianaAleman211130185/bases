@@ -9,28 +9,42 @@ import { PersonService, Person } from '../../../services/person.service';
   templateUrl: './hero-page.html',
   styleUrl: './hero-page.css'
 })
+
 export class HeroPageComponent implements OnInit {
 
-  persons = signal<Person[]>([]);
+  currentPerson = signal<Person | null>(null);
+
+  folio = signal<number>(1);
 
   constructor(private personService: PersonService) {}
 
   ngOnInit(): void {
 
-    let localPersons: Person[] = [];
-
     const data = localStorage.getItem('personas');
+
     if (data) {
-      localPersons = JSON.parse(data);
+
+      const persons: Person[] = JSON.parse(data);
+
+      if (persons.length > 0) {
+
+        /* =========================
+           Última persona registrada
+        ========================= */
+
+        const lastPerson = persons[persons.length - 1];
+
+        this.currentPerson.set(lastPerson);
+
+        /* =========================
+           Folio consecutivo
+        ========================= */
+
+        this.folio.set(persons.length);
+
+      }
+
     }
-
-    this.personService.getPersons().subscribe((apiPersons: Person[]) => {
-
-      const allPersons = [...localPersons, ...apiPersons];
-
-      this.persons.set(allPersons);
-
-    });
 
   }
 

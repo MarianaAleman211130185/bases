@@ -1,48 +1,56 @@
 <div class="hero-container">
-
   <div class="hero-card">
-
     <div class="hero-header">
-      <i class="bi bi-people-fill"></i>
-      Personas Registradas
+      <i class="bi bi-person-vcard-fill"></i>
+      Ficha de Registro Ciudadano
     </div>
-
     <div class="hero-body">
-
-      <table class="table-ine">
-
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr *ngFor="let p of persons(); let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ p.nombre }}</td>
-            <td>{{ p.apellidoPaterno }}</td>
-            <td>{{ p.apellidoMaterno }}</td>
-            <td>{{ p.email }}</td>
-          </tr>
-
-          <tr *ngIf="persons().length === 0">
-            <td colspan="4" class="no-data">
-              No hay personas registradas
-            </td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
+      <!-- SI HAY PERSONA -->
+      <div *ngIf="currentPerson() as p">
+        <div class="persona-card">
+          <div class="card-top">
+            <div class="folio">
+              <i class="bi bi-file-earmark-text-fill"></i>
+              Folio: INE-2026-00{{ folio() }}
+            </div>
+            <div class="status">
+              REGISTRADO
+            </div>
+          </div>
+          <div class="persona-icon">
+            <i class="bi bi-person-circle"></i>
+          </div>
+          <div class="persona-info">
+            <h2>
+              {{ p.nombre }}
+              {{ p.apellidoPaterno }}
+              {{ p.apellidoMaterno }}
+            </h2>
+            <p>
+              <i class="bi bi-calendar-event-fill"></i>
+              Fecha de nacimiento:
+              {{ p.birthdate }}
+            </p>
+            <p>
+              <i class="bi bi-gender-ambiguous"></i>
+              Género:
+              {{ p.genero }}
+            </p>
+            <p>
+              <i class="bi bi-geo-alt-fill"></i>
+              Municipio:
+              {{ p.municipio }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- SI NO HAY PERSONA -->
+      <div *ngIf="!currentPerson()" class="no-data">
+        <i class="bi bi-person-x-fill"></i>
+        <p>
+          No hay registros disponibles
+        </p>
+      </div>
     </div>
-
   </div>
-
 </div>

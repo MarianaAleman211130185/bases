@@ -1,92 +1,187 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* =========================
+   GENERAL
+========================= */
+
 body{
   font-family: "Poppins", sans-serif;
+  background: #f4f6f8;
   color: #222;
-  letter-spacing: 0.3px;
-  background-color: #f4f6f8;
 }
+
+/* =========================
+   CONTENEDOR
+========================= */
+
 .hero-container{
-  font-family: "Poppins", sans-serif;
   width: 100%;
   min-height: 80vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding: 40px;
-  margin-top: 60px;
 }
+
+/* =========================
+   CARD PRINCIPAL
+========================= */
+
 .hero-card{
-  font-family: "Poppins", sans-serif;
   width: 100%;
   max-width: 700px;
-  border: none;
-  border-radius: 12px;
-  overflow: hidden;
   background: white;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-  transition: all .3s ease;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
 }
-.hero-card:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
-}
+
 .hero-header{
-  font-family: "Poppins", sans-serif;
   background: #9c1c4c;
   color: white;
-  padding: 16px;
-  font-size: 22px;
-  font-weight: 500;
+  padding: 18px;
+  font-size: 24px;
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
+
+/* =========================
+   BODY
+========================= */
+
 .hero-body{
-  font-family: "Poppins", sans-serif;
-  padding: 25px;
+  padding: 35px;
 }
-.table-ine{
-  width: 100%;
-  border-collapse: collapse;
+
+/* =========================
+   TARJETA PERSONA
+========================= */
+
+.persona-card{
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid #ececec;
 }
-.table-ine thead{
-  background: #9c1c4c;
-  color: white;
+
+/* =========================
+   TOP
+========================= */
+
+.card-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
-.table-ine th{
-  font-family: "Poppins", sans-serif;
-  padding: 12px;
-  font-weight: 500;
+
+.folio{
+  color: #9c1c4c;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status{
+  background: #e8f7ee;
+  color: #1f9254;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================
+   ICONO
+========================= */
+
+.persona-icon{
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  margin-bottom: 25px;
+  border-radius: 50%;
+  background: rgba(156, 28, 76, 0.10);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.persona-icon i{
+  font-size: 5rem;
+  color: #9c1c4c;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.persona-info{
   text-align: center;
 }
-.table-ine td{
-  font-family: "Poppins", sans-serif;
-  padding: 12px;
-  text-align: center;
-  border-bottom: 1px solid #eee;
+
+.persona-info h2{
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #222;
 }
-.table-ine tbody tr{
-  transition: all .2s ease;
+
+.persona-info p{
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
-.table-ine tbody tr:hover{
-  font-family: "Poppins", sans-serif;
-  background: #f8e6ee;
-  transform: scale(1.01);
+
+.persona-info p i{
+  color: #9c1c4c;
 }
+
+/* =========================
+   NO DATA
+========================= */
+
 .no-data{
   text-align: center;
-  padding: 20px;
-  color: #888;
+  padding: 50px;
+  color: #999;
 }
+
+.no-data i{
+  font-size: 5rem;
+  color: #9c1c4c;
+  margin-bottom: 20px;
+}
+
+.no-data p{
+  font-size: 18px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media (max-width:768px){
 
-  .hero-card{
-    max-width: 100%;
+  .hero-container{
+    padding: 20px;
   }
 
   .hero-header{
-    font-size: 18px;
+    font-size: 20px;
+  }
+
+  .persona-info h2{
+    font-size: 22px;
   }
 
 }

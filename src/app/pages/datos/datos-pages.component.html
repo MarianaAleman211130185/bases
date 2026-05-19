@@ -76,19 +76,19 @@
               </div>
               <div class="col-12 col-md-6">
                 <label class="form-label ine-label">
-                  <i class="bi bi-person-badge-fill me-1"></i> Apellido Materno:
-                </label>
-                <input type="text" class="form-control"
-                  [value]="lastnameMat()"
-                  (input)="lastnameMat.set($any($event.target).value); guardarCache()">
-              </div>
-              <div class="col-12 col-md-6">
-                <label class="form-label ine-label">
                   <i class="bi bi-person-badge-fill me-1"></i> Apellido Paterno:
                 </label>
                 <input type="text" class="form-control"
                   [value]="lastnamePat()"
                   (input)="lastnamePat.set($any($event.target).value); guardarCache()">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label ine-label">
+                  <i class="bi bi-person-badge-fill me-1"></i> Apellido Materno:
+                </label>
+                <input type="text" class="form-control"
+                  [value]="lastnameMat()"
+                  (input)="lastnameMat.set($any($event.target).value); guardarCache()">
               </div>
               <div class="col-12 col-md-6">
                 <label class="form-label ine-label">

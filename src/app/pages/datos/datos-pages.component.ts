@@ -11,8 +11,8 @@ import { PersonService, Person } from '../../services/person.service';
 export class DatosPagesComponent implements OnInit {
   constructor(private personService: PersonService) {}
   name = signal<string>('');
-  lastnameMat = signal<string>('');
   lastnamePat = signal<string>('');
+  lastnameMat = signal<string>('');
   email = signal<string>('');
   emailValido = signal<boolean | null>(null);
   birthdate = signal<string>('');
@@ -46,8 +46,8 @@ export class DatosPagesComponent implements OnInit {
   guardarCache() {
     const data = {
       name: this.name(),
-      lastnameMat: this.lastnameMat(),
       lastnamePat: this.lastnamePat(),
+      lastnameMat: this.lastnameMat(),
       email: this.email(),
       phone: this.phone(),
       estado: this.estado(),
@@ -72,8 +72,8 @@ export class DatosPagesComponent implements OnInit {
       const data = JSON.parse(cache);
 
       this.name.set(data.name || '');
-      this.lastnameMat.set(data.lastnameMat || '');
       this.lastnamePat.set(data.lastnamePat || '');
+      this.lastnameMat.set(data.lastnameMat || '');
       this.email.set(data.email || '');
       this.phone.set(data.phone || '');
       this.estado.set(data.estado || '');
@@ -170,7 +170,7 @@ export class DatosPagesComponent implements OnInit {
   }
 
   addPerson(): void {
-    if (!this.name() || !this.lastnameMat() || !this.lastnamePat() || !this.genero() || !this.email() || !this.birthdate() || !this.phone() || !this.estado() || !this.municipio()) {
+    if (!this.name() || !this.lastnamePat() || !this.lastnameMat() || !this.genero() || !this.email() || !this.birthdate() || !this.phone() || !this.estado() || !this.municipio()) {
       alert('Por favor, completa todos los campos requeridos');
       return;
     }
@@ -196,8 +196,8 @@ export class DatosPagesComponent implements OnInit {
     const exists = persons.some(
       (p: any) => 
         p.nombre.toLowerCase() === this.name().toLowerCase() &&
-        p.apellidoMaterno.toLowerCase() === this.lastnameMat().toLowerCase() &&
         p.apellidoPaterno.toLowerCase() === this.lastnamePat().toLowerCase() &&
+        p.apellidoMaterno.toLowerCase() === this.lastnameMat().toLowerCase() &&
         p.birthdate === this.birthdate() &&
         p.genero === this.genero() &&
         p.estado === this.estado() &&
@@ -214,8 +214,8 @@ export class DatosPagesComponent implements OnInit {
   const nuevaPersona: Person = {
     id: persons.length > 0 ? persons[persons.length - 1].id + 1 : 1,
     nombre: this.name(),
-    apellidoMaterno: this.lastnameMat(),
     apellidoPaterno: this.lastnamePat(),
+    apellidoMaterno: this.lastnameMat(),
     birthdate: this.birthdate(),
     genero: this.genero(),
     estado: this.estado(),
@@ -230,8 +230,8 @@ export class DatosPagesComponent implements OnInit {
     localStorage.setItem('personas', JSON.stringify(persons));
     alert('Persona registrada exitosamente');
     this.name.set('');
-    this.lastnameMat.set('');
     this.lastnamePat.set('');
+    this.lastnameMat.set('');
     this.birthdate.set('');
     this.genero.set('');
     this.email.set('');
@@ -246,7 +246,7 @@ export class DatosPagesComponent implements OnInit {
   });
   }
   paso1Completo(): boolean {
-    return this.name() !== '' && this.lastnameMat() !== '' && this.lastnamePat() !== '';
+    return this.name() !== '' && this.lastnamePat() !== '' && this.lastnameMat() !== '';
   }
 
   paso2Completo(): boolean {
